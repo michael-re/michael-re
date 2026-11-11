@@ -1,4 +1,3 @@
-
 <svg xmlns="http://www.w3.org/2000/svg"
      xmlns:xhtml="http://www.w3.org/1999/xhtml"
      width="1200"
@@ -7,126 +6,224 @@
 
     <defs>
         <clipPath id="rounded">
-        <rect x="0" y="0" width="1200" height="420" rx="12"/>
+            <rect x="0" y="0" width="1200" height="420" rx="12"/>
         </clipPath>
     </defs>
 
-    <foreignObject x="0" y="0"
-                   width="1200" height="420"
-                   clip-path="url(#rounded)">
-
+    <foreignObject x="0" y="0" width="1200" height="420" clip-path="url(#rounded)">
         <xhtml:div class="container">
-        <xhtml:style>
-            * {
-                box-sizing: border-box;
-            }
+            <xhtml:style>
+                * {
+                    box-sizing: border-box;
+                }
 
-            .container {
-                width: 1200px;
-                height: 420px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                position: relative;
-                overflow: hidden;
-                border-radius: 12px;
-                background: transparent;
-            }
+                .container {
+                    width: 1200px;
+                    height: 420px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    position: relative;
+                    overflow: hidden;
+                    border-radius: 12px;
+                    background: transparent;
+                }
 
-            .blob {
-                position: absolute;
-                width: 700px;
-                height: 300px;
-                border-radius: 50%;
-                filter: blur(100px);
-                opacity: 0.42;
-                animation: morph 12s ease-in-out infinite alternate,
-                            float 9s ease-in-out infinite;
-            }
+                /* Gradient blobs */
+                .blob {
+                    position: absolute;
+                    width: 700px;
+                    height: 300px;
+                    border-radius: 50%;
+                    filter: blur(100px);
+                    opacity: 0.42;
+                    animation:
+                        morph 12s ease-in-out infinite alternate,
+                        float 9s ease-in-out infinite;
+                }
 
-            .blue {
-                background: #3b82f6;
-                left: 5%;
-                top: 0;
-            }
+                .blue {
+                    background: #3b82f6;
+                    left: 5%;
+                    top: 0;
+                }
 
-            .orange {
-                background: #fb923c;
-                right: 5%;
-                bottom: 0;
-                animation-delay: -5s;
-            }
+                .orange {
+                    background: #fb923c;
+                    right: 5%;
+                    bottom: 0;
+                    animation-delay: -5s;
+                }
 
-            .purple {
-                background: #818cf8;
-                width: 500px;
-                height: 260px;
-                left: 30%;
-                top: 15%;
-                opacity: 0.28;
-                animation-delay: -3s;
-            }
+                .purple {
+                    background: #818cf8;
+                    width: 500px;
+                    height: 260px;
+                    left: 30%;
+                    top: 15%;
+                    opacity: 0.28;
+                    animation-delay: -3s;
+                }
 
-            .text-wrapper {
-                position: relative;
-                z-index: 2;
-                overflow: hidden;
-            }
+                /* Typing text */
+                .text-wrapper {
+                    position: relative;
+                    z-index: 2;
+                    width: 850px;
+                    height: 80px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
 
-            .typing {
-                color: #24292f;
-                font-family: monospace;
-                font-size: 56px;
-                font-weight: 800;
-                letter-spacing: -2px;
-                white-space: nowrap;
-                overflow: hidden;
-                width: 0;
-                border-right: 4px solid #24292f;
-                animation:
-                    typing 2.2s steps(13, end) 0.5s forwards,
-                    blink 0.75s step-end infinite;
-            }
+                .typing {
+                    /*
+                        --u = width of one character (1ch minus letter-spacing)
+                        --w = width of the full phrase
+                    */
+                    --u: calc(1ch - 2px);
+                    --w: calc(var(--n) * var(--u));
 
-            @keyframes typing {
-                from { width: 0; }
-                to { width: 13ch; }
-            }
+                    position: absolute;
+                    top: 50%;
+                    margin-top: -34px;
+                    left: 50%;
+                    margin-left: calc(var(--w) / -2);
 
-            @keyframes blink {
-                from, to { border-color: transparent; }
-                50% { border-color: #24292f; }
-            }
+                    box-sizing: content-box;
+                    width: 0;
+                    overflow: hidden;
+                    white-space: nowrap;
 
-            @keyframes morph {
-            0% {
-                border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-                transform: rotate(0deg) scale(1);
-            }
-            50% {
-                border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
-                transform: rotate(10deg) scale(1.15);
-            }
-            100% {
-                border-radius: 40% 60% 50% 50% / 40% 40% 60% 60%;
-                transform: rotate(-10deg) scale(0.95);
-            }
-            }
+                    color: #24292f;
+                    font-family: monospace;
+                    font-size: 56px;
+                    font-weight: 800;
+                    letter-spacing: -2px;
+                    line-height: 68px;
 
-            @keyframes float {
-                0%, 100% { translate: 0 0; }
-                50% { translate: 0 -25px; }
-            }
-        </xhtml:style>
+                    border-right: 4px solid #24292f;
+                    opacity: 0;
 
-        <xhtml:div class="blob blue"></xhtml:div>
-        <xhtml:div class="blob orange"></xhtml:div>
-        <xhtml:div class="blob purple"></xhtml:div>
+                    /* 5 phrases x 8s each = 40s total cycle */
+                    animation:
+                        type-cycle 40s linear infinite,
+                        blink 0.7s step-end infinite;
+                }
 
-        <xhtml:div class="text-wrapper">
-            <xhtml:div class="typing">Hello, World!</xhtml:div>
-        </xhtml:div>
+                /*
+                    Each phrase starts 8s after the previous one.
+                    --n must match the number of characters.
+                */
+                .english { --n: 13; animation-delay:  0s,  0s; }
+                .spanish { --n: 12; animation-delay: -32s, 0s; }
+                .french  { --n: 18; animation-delay: -24s, 0s; }
+                .german  { --n: 12; animation-delay: -16s, 0s; }
+                .italian { --n: 12; animation-delay: -8s,  0s; }
 
+                /*
+                  Timeline per phrase (8s slot out of a 40s cycle, 1s = 2.5%):
+                    0s    -> 0.35s  cursor blinks alone
+                    0.35s -> ~3s    letters typed one by one at uneven intervals
+                    7.0s            backspace starts (17.5%)
+                    7.0s  -> 7.8s   backspace, one letter at a time
+                    7.8s  -> 8s     pause before next phrase
+
+                  Every typing keyframe uses step-end, so the width jumps
+                  by exactly one character at each keyframe. min() caps the
+                  width, so shorter phrases stop at their own last letter.
+                */
+                @keyframes type-cycle {
+                    0%     { width: 0;                                  opacity: 1; animation-timing-function: step-end; }
+                    0.875% { width: min(calc(1  * var(--u)), var(--w)); opacity: 1; animation-timing-function: step-end; }
+                    1.3%   { width: min(calc(2  * var(--u)), var(--w)); opacity: 1; animation-timing-function: step-end; }
+                    1.6%   { width: min(calc(3  * var(--u)), var(--w)); opacity: 1; animation-timing-function: step-end; }
+                    2.1%   { width: min(calc(4  * var(--u)), var(--w)); opacity: 1; animation-timing-function: step-end; }
+                    2.425% { width: min(calc(5  * var(--u)), var(--w)); opacity: 1; animation-timing-function: step-end; }
+                    2.8%   { width: min(calc(6  * var(--u)), var(--w)); opacity: 1; animation-timing-function: step-end; }
+                    3.375% { width: min(calc(7  * var(--u)), var(--w)); opacity: 1; animation-timing-function: step-end; }
+                    3.75%  { width: min(calc(8  * var(--u)), var(--w)); opacity: 1; animation-timing-function: step-end; }
+                    4.05%  { width: min(calc(9  * var(--u)), var(--w)); opacity: 1; animation-timing-function: step-end; }
+                    4.5%   { width: min(calc(10 * var(--u)), var(--w)); opacity: 1; animation-timing-function: step-end; }
+                    4.8%   { width: min(calc(11 * var(--u)), var(--w)); opacity: 1; animation-timing-function: step-end; }
+                    5.2%   { width: min(calc(12 * var(--u)), var(--w)); opacity: 1; animation-timing-function: step-end; }
+                    5.5%   { width: min(calc(13 * var(--u)), var(--w)); opacity: 1; animation-timing-function: step-end; }
+                    5.95%  { width: min(calc(14 * var(--u)), var(--w)); opacity: 1; animation-timing-function: step-end; }
+                    6.25%  { width: min(calc(15 * var(--u)), var(--w)); opacity: 1; animation-timing-function: step-end; }
+                    6.65%  { width: min(calc(16 * var(--u)), var(--w)); opacity: 1; animation-timing-function: step-end; }
+                    7%     { width: min(calc(17 * var(--u)), var(--w)); opacity: 1; animation-timing-function: step-end; }
+                    7.375% { width: min(calc(18 * var(--u)), var(--w)); opacity: 1; animation-timing-function: step-end; }
+
+                    /* Hold, then backspace one letter at a time */
+                    17.5% {
+                        width: var(--w);
+                        opacity: 1;
+                        animation-timing-function: steps(var(--n), end);
+                    }
+
+                    19.5% {
+                        width: 0;
+                        opacity: 1;
+                    }
+
+                    19.6% {
+                        width: 0;
+                        opacity: 0;
+                    }
+
+                    100% {
+                        width: 0;
+                        opacity: 0;
+                    }
+                }
+
+                /* Blinking cursor */
+                @keyframes blink {
+                    50% {
+                        border-color: transparent;
+                    }
+                }
+
+                /* Blob animations */
+                @keyframes morph {
+                    0% {
+                        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+                        transform: rotate(0deg) scale(1);
+                    }
+
+                    50% {
+                        border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+                        transform: rotate(10deg) scale(1.15);
+                    }
+
+                    100% {
+                        border-radius: 40% 60% 50% 50% / 40% 40% 60% 60%;
+                        transform: rotate(-10deg) scale(0.95);
+                    }
+                }
+
+                @keyframes float {
+                    0%, 100% {
+                        translate: 0 0;
+                    }
+
+                    50% {
+                        translate: 0 -25px;
+                    }
+                }
+            </xhtml:style>
+
+            <xhtml:div class="blob blue"></xhtml:div>
+            <xhtml:div class="blob orange"></xhtml:div>
+            <xhtml:div class="blob purple"></xhtml:div>
+
+            <xhtml:div class="text-wrapper">
+                <xhtml:div class="typing english">Hello, World!</xhtml:div>
+                <xhtml:div class="typing spanish">Hola, mundo!</xhtml:div>
+                <xhtml:div class="typing french">Bonjour, le monde!</xhtml:div>
+                <xhtml:div class="typing german">Hallo, Welt!</xhtml:div>
+                <xhtml:div class="typing italian">Ciao, mondo!</xhtml:div>
+            </xhtml:div>
         </xhtml:div>
     </foreignObject>
 </svg>
