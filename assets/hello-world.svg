@@ -1,0 +1,132 @@
+
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xhtml="http://www.w3.org/1999/xhtml"
+     width="1200"
+     height="420"
+     viewBox="0 0 1200 420">
+
+    <defs>
+        <clipPath id="rounded">
+        <rect x="0" y="0" width="1200" height="420" rx="12"/>
+        </clipPath>
+    </defs>
+
+    <foreignObject x="0" y="0"
+                   width="1200" height="420"
+                   clip-path="url(#rounded)">
+
+        <xhtml:div class="container">
+        <xhtml:style>
+            * {
+                box-sizing: border-box;
+            }
+
+            .container {
+                width: 1200px;
+                height: 420px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                position: relative;
+                overflow: hidden;
+                border-radius: 12px;
+                background: transparent;
+            }
+
+            .blob {
+                position: absolute;
+                width: 700px;
+                height: 300px;
+                border-radius: 50%;
+                filter: blur(100px);
+                opacity: 0.42;
+                animation: morph 12s ease-in-out infinite alternate,
+                            float 9s ease-in-out infinite;
+            }
+
+            .blue {
+                background: #3b82f6;
+                left: 5%;
+                top: 0;
+            }
+
+            .orange {
+                background: #fb923c;
+                right: 5%;
+                bottom: 0;
+                animation-delay: -5s;
+            }
+
+            .purple {
+                background: #818cf8;
+                width: 500px;
+                height: 260px;
+                left: 30%;
+                top: 15%;
+                opacity: 0.28;
+                animation-delay: -3s;
+            }
+
+            .text-wrapper {
+                position: relative;
+                z-index: 2;
+                overflow: hidden;
+            }
+
+            .typing {
+                color: #24292f;
+                font-family: monospace;
+                font-size: 56px;
+                font-weight: 800;
+                letter-spacing: -2px;
+                white-space: nowrap;
+                overflow: hidden;
+                width: 0;
+                border-right: 4px solid #24292f;
+                animation:
+                    typing 2.2s steps(13, end) 0.5s forwards,
+                    blink 0.75s step-end infinite;
+            }
+
+            @keyframes typing {
+                from { width: 0; }
+                to { width: 13ch; }
+            }
+
+            @keyframes blink {
+                from, to { border-color: transparent; }
+                50% { border-color: #24292f; }
+            }
+
+            @keyframes morph {
+            0% {
+                border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+                transform: rotate(0deg) scale(1);
+            }
+            50% {
+                border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+                transform: rotate(10deg) scale(1.15);
+            }
+            100% {
+                border-radius: 40% 60% 50% 50% / 40% 40% 60% 60%;
+                transform: rotate(-10deg) scale(0.95);
+            }
+            }
+
+            @keyframes float {
+                0%, 100% { translate: 0 0; }
+                50% { translate: 0 -25px; }
+            }
+        </xhtml:style>
+
+        <xhtml:div class="blob blue"></xhtml:div>
+        <xhtml:div class="blob orange"></xhtml:div>
+        <xhtml:div class="blob purple"></xhtml:div>
+
+        <xhtml:div class="text-wrapper">
+            <xhtml:div class="typing">Hello, World!</xhtml:div>
+        </xhtml:div>
+
+        </xhtml:div>
+    </foreignObject>
+</svg>
