@@ -1,15 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg"
      xmlns:xhtml="http://www.w3.org/1999/xhtml"
-     width="1200"
-     height="420"
-     viewBox="0 0 1200 420">
+     width="100%"
+     height="auto"
+     viewBox="0 0 1200 420"
+     preserveAspectRatio="xMidYMid meet">
 
     <defs>
         <clipPath id="rounded">
             <rect x="0" y="0" width="1200" height="420" rx="12"/>
         </clipPath>
     </defs>
-
+    
     <foreignObject x="0" y="0" width="1200" height="420" clip-path="url(#rounded)">
         <xhtml:div class="container">
             <xhtml:style>
